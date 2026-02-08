@@ -16,6 +16,7 @@ EOF
 
 RUN cat <<'SCRIPT' > /wiki/start.sh
 #!/bin/sh
+echo "DB_PASS length: ${#DB_PASS}"
 cat > /wiki/config.yml <<YML
 bindIP: 0.0.0.0
 port: 8000
@@ -28,6 +29,7 @@ db:
   db: postgres
   ssl: true
 YML
+cat /wiki/config.yml
 node --require /wiki/disable-tls.js --dns-result-order=ipv4first server
 SCRIPT
 RUN chmod +x /wiki/start.sh

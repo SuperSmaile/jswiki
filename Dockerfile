@@ -14,7 +14,7 @@ tls.connect = function(...args) {
 };
 EOF
 
-RUN cat <<'EOF' > /wiki/start.sh
+RUN cat <<'SCRIPT' > /wiki/start.sh
 #!/bin/sh
 cat > /wiki/config.yml <<YML
 bindIP: 0.0.0.0
@@ -24,12 +24,12 @@ db:
   host: aws-1-eu-west-1.pooler.supabase.com
   port: 5432
   user: postgres.qaxbwxmbrlejngsppeaa
-  pass: "$DB_PASS"
+  pass: '${DB_PASS}'
   db: postgres
   ssl: true
 YML
 node --require /wiki/disable-tls.js --dns-result-order=ipv4first server
-EOF
+SCRIPT
 RUN chmod +x /wiki/start.sh
 
 EXPOSE 8000
